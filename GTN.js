@@ -1,3 +1,77 @@
+//-----------------Refactoring the above code------------------------------
+
+//Variable declarations
+let score = 20;
+let highScore = 0;
+let randNumber;
+
+//Function to generate a random number
+function generateRandNumber() {
+  randNumber = Math.trunc(Math.random() * 20) + 1;
+  console.log(randNumber);
+}
+
+//Function to display different messages according to the situation
+function displayMessage(message) {
+  document.querySelector(".message").textContent = message;
+}
+
+//Activating the event listener on 'again' button
+document.querySelector(".again").addEventListener("click", function () {
+  generateRandNumber();
+  score = 20;
+  document.querySelector(".guess").value = null;
+  document.querySelector("body").style.backgroundColor = "#222";
+  document.querySelector(".number").style.width = "15rem";
+  document.querySelector(".number").textContent = "?";
+  document.querySelector(".score").textContent = score;
+  displayMessage("guess the number...");
+});
+
+//Activating the event listener on 'check' button
+document.querySelector(".check").addEventListener("click", function () {
+  //Input the number
+  let inputNumber = Number(document.querySelector(".guess").value);
+
+  //Input number should between 0 and 20
+  if (inputNumber > 0 && inputNumber <= 20) {
+    //Condition for winning
+    if (inputNumber == randNumber) {
+      displayMessage("Found the matching number!");
+      document.querySelector("body").style.backgroundColor = "green";
+      document.querySelector(".number").style.width = "30rem";
+      document.querySelector(".number").textContent = randNumber;
+
+      //Condition for updating the highscore
+      if (highScore < score) {
+        highScore = score;
+        document.querySelector(".highscore").textContent = highScore;
+      }
+
+      //Conditon for input number is higher than random number
+    } else if (inputNumber != randNumber) {
+      //Condition to limit number of chances
+      if (score > 0) {
+        //Condition for lower and higher input number
+        inputNumber > randNumber
+          ? displayMessage("too high!")
+          : displayMessage("too low!");
+        score--;
+        document.querySelector(".score").textContent = score;
+      } else {
+        displayMessage("You lost the game.");
+      }
+      //Condition for invalid number
+    } else {
+      displayMessage("Invalid number!");
+    }
+  }
+});
+
+generateRandNumber();
+
+/*
+
 //Variable declarations
 let score = 20;
 let highScore = 0;
@@ -68,3 +142,5 @@ document.querySelector(".check").addEventListener("click", function () {
     document.querySelector(".message").textContent = "Invalid number!";
   }
 });
+
+*/
