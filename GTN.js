@@ -1,30 +1,70 @@
-//-----------Generate random number ---------------------------------------------
-let randNumber = Math.trunc(Math.random() * 20) + 1;
-document.querySelector(".number").textContent = randNumber;
+//Variable declarations
+let score = 20;
+let highScore = 0;
 
-//-----------Invokinng listenner on 'Check' button -------------------------------
+//Generate a random number
+let randNumber = Math.trunc(Math.random() * 20) + 1;
+console.log(randNumber);
+
+//Activating the event listener on 'again' button
+document.querySelector(".again").addEventListener("click", function () {
+  randNumber = Math.trunc(Math.random() * 20) + 1;
+  console.log(randNumber);
+  score = 20;
+  document.querySelector(".guess").value = null;
+  document.querySelector("body").style.backgroundColor = "#222";
+  document.querySelector(".number").style.width = "15rem";
+  document.querySelector(".message").textContent = "guess the number...";
+  document.querySelector(".number").textContent = "?";
+  document.querySelector(".score").textContent = score;
+});
+
+//Activating the event listener on 'check' button
 document.querySelector(".check").addEventListener("click", function () {
-  //---------input a number-------------------------------------------------------
+  //Input the number
   let inputNumber = Number(document.querySelector(".guess").value);
 
-  //---------------condition for out of range input number------------------------
+  //Input number should between 0 and 20
   if (inputNumber > 0 && inputNumber <= 20) {
-    //-------------condition for winning------------------------------------------
+    //Condition for winning
     if (inputNumber == randNumber) {
       document.querySelector(".message").textContent =
-        "You found the matching number!";
+        "Found the matching number!";
+      document.querySelector("body").style.backgroundColor = "green";
+      document.querySelector(".number").style.width = "30rem";
+      document.querySelector(".number").textContent = randNumber;
 
-      //---------consdition for high inout number ------------------------------
+      //Condition for updating the highscore
+      if (highScore < score) {
+        highScore = score;
+        document.querySelector(".highscore").textContent = highScore;
+      }
+
+      //Conditon for input number is higher than random number
     } else if (inputNumber > randNumber) {
-      document.querySelector(".message").textContent = "too high!";
+      //Condition to limit number of chances
+      if (score > 0) {
+        document.querySelector(".message").textContent = "too high!";
+        score--;
+        document.querySelector(".score").textContent = score;
+      } else {
+        document.querySelector(".message").textContent = "You lost the game.";
+      }
 
-      //----------condition for low input number ---------------------------------
-    } else {
-      document.querySelector(".message").textContent = "too low!";
+      //Conditon for input number is lower than random number
+    } else if (inputNumber < randNumber) {
+      //Condition to limit number of chances
+      if (score > 0) {
+        document.querySelector(".message").textContent = "too low!";
+        score--;
+        document.querySelector(".score").textContent = score;
+      } else {
+        document.querySelector(".message").textContent = "You lost the game.";
+      }
     }
 
-    //-----------condition for invalid input number-------------------------------
+    //Condition for invalid number
   } else {
-    document.querySelector(".message").textContent = "Invalid Input Number!";
+    document.querySelector(".message").textContent = "Invalid number!";
   }
 });
