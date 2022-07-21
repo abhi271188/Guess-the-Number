@@ -1,4 +1,4 @@
-//-----------------Refactoring the above code------------------------------
+//-----------------Refactoring the below code---------------------------------------
 
 //Variable declarations
 let score = 20;
