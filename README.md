@@ -21,3 +21,7 @@ JavaScript, CSS, and HTML5.0
   
 # When user input a number less than random number
 ![image](https://user-images.githubusercontent.com/99959459/180667337-de83365f-8b8a-4cbc-8e09-f4c44f646142.png)
+
+# When user guessed the correct number
+![image](https://user-images.githubusercontent.com/99959459/180667389-d5495003-6d99-4ca6-b5ce-f57eb5326353.png)
+
